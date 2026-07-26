@@ -2,7 +2,7 @@
 <html data-init="no-js">
 <head>
 <meta charset="UTF-8" />
-<title>双月 之夜</title>
+<title>双月之夜</title>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="application-name" content="SugarCube" />
 <meta name="version" content="2.37.3" />
@@ -1630,16 +1630,13 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
  
  似乎也问不出更多了。
  
- 你决定：
+ 在离开之前，你决定：
 &lt;&lt;link &quot;探索周围&quot; &quot;探索特别展厅&quot;&gt;&gt;
     &lt;&lt;set $choice = 1&gt;&gt;
     &lt;&lt;/link&gt;&gt;
  &lt;&lt;link &quot;休息一会儿&quot; &quot;前往门口&quot;&gt;&gt;
     &lt;&lt;set $choice = 2&gt;&gt;
     &lt;&lt;set $stamina += 20&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;直接离开这里&quot; &quot;前往门口&quot;&gt;&gt;
-    &lt;&lt;set $choice =  3&gt;&gt;
     &lt;&lt;/link&gt;&gt;
 &lt;&lt;silently&gt;&gt;&lt;&lt;include &quot;清理变量&quot;&gt;&gt;&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="爱抚界面" tags="" position="500,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;if not SimpleAudio.tracks.get(&quot;mikazuki_bgm&quot;).isPlaying()&gt;&gt;
@@ -1665,7 +1662,7 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
   { name: &quot;头发&quot;, zoneClass: &quot;zone-hair&quot;, bad: &quot;这样可是会扯痛的哦。&quot;, normal: &quot;哎呀，在帮我调整发饰吗？&quot;, good: &quot;很舒服哦，要是在这里睡着的话……&quot; },
   { name: &quot;耳朵&quot;, zoneClass: &quot;zone-ears&quot;, bad: &quot;虽然说是老爷爷，但并不会耳背……&quot;, normal: &quot;有什么悄悄话要对我说吗？&quot;, good: &quot;嗯……有点痒呢。不过可以再靠近点。&quot; },
   { name: &quot;脸颊&quot;, zoneClass: &quot;zone-face&quot;, bad: &quot;莫非是在不知不觉中沾了什么？&quot;, normal: &quot;主人的手真是相当暖和呢。&quot;, good: &quot;这么喜欢我的美丽吗？甚好甚好。&quot; },
-  { name: &quot;眼睛&quot;, zoneClass: &quot;zone-eyes&quot;, bad: &quot;蒙住眼睛的话，就看不见了。&quot;, normal: &quot;主人喜欢映照出的新月吗？&quot;, good: &quot;这双眼睛注视着的，从始至终都是你的身影啊。&quot; },
+  { name: &quot;眼睛&quot;, zoneClass: &quot;zone-eyes&quot;, bad: &quot;夜晚正是入梦时分。。&quot;, normal: &quot;主人喜欢映照出的新月吗？&quot;, good: &quot;这双眼睛注视着的，从始至终都是你的身影啊。&quot; },
   { name: &quot;嘴唇&quot;, zoneClass: &quot;zone-lips&quot;, bad: &quot;是要让老爷爷闭嘴吗？&quot;, normal: &quot;想听我说些什么？&quot;, good: &quot;只用手指啊，不深入品尝吗？&quot; },
   { name: &quot;喉结&quot;, zoneClass: &quot;zone-throat&quot;, bad: &quot;咳……稍微有些过头了呢。&quot;, normal: &quot;主人想摸的话，随便怎么摸都可以的。&quot;, good: &quot;呼，这样被把玩的感觉，也不赖。&quot; },
   { name: &quot;胸膛&quot;, zoneClass: &quot;zone-chest&quot;, bad: &quot;skinship吗？摸吧摸吧，哈哈哈。&quot;, normal: &quot;狩衣穿起来总是很麻烦啊。&quot;, good: &quot;哦呀，领口散开了啊。&quot; },
@@ -2057,7 +2054,7 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
   { name: &quot;头发&quot;, zoneClass: &quot;zone-hair&quot;, bad: &quot;这样可是会扯痛的哦。&quot;, normal: &quot;哎呀，在帮我调整发饰吗？&quot;, good: &quot;很舒服哦，要是在这里睡着的话……&quot; },
   { name: &quot;耳朵&quot;, zoneClass: &quot;zone-ears&quot;, bad: &quot;虽然说是老爷爷，但并不会耳背……&quot;, normal: &quot;有什么悄悄话要对我说吗？&quot;, good: &quot;嗯……有点痒呢。不过可以再靠近点。&quot; },
   { name: &quot;脸颊&quot;, zoneClass: &quot;zone-face&quot;, bad: &quot;莫非是在不知不觉中沾了什么？&quot;, normal: &quot;主人的手真是相当暖和呢。&quot;, good: &quot;这么喜欢我的美丽吗？甚好甚好。&quot; },
-  { name: &quot;眼睛&quot;, zoneClass: &quot;zone-eyes&quot;, bad: &quot;蒙住眼睛的话，就看不见了。&quot;, normal: &quot;主人喜欢映照出的新月吗？&quot;, good: &quot;这双眼睛注视着的，从始至终都是你的身影啊。&quot; },
+  { name: &quot;眼睛&quot;, zoneClass: &quot;zone-eyes&quot;, bad: &quot;夜晚正是入梦时分。。&quot;, normal: &quot;主人喜欢映照出的新月吗？&quot;, good: &quot;这双眼睛注视着的，从始至终都是你的身影啊。&quot; },
   { name: &quot;嘴唇&quot;, zoneClass: &quot;zone-lips&quot;, bad: &quot;是要让老爷爷闭嘴吗？&quot;, normal: &quot;想听我说些什么？&quot;, good: &quot;只用手指啊，不深入品尝吗？&quot; },
   { name: &quot;喉结&quot;, zoneClass: &quot;zone-throat&quot;, bad: &quot;咳……稍微有些过头了呢。&quot;, normal: &quot;主人想摸的话，随便怎么摸都可以的。&quot;, good: &quot;呼，这样被把玩的感觉，也不赖。&quot; },
   { name: &quot;胸膛&quot;, zoneClass: &quot;zone-chest&quot;, bad: &quot;skinship吗？摸吧摸吧，哈哈哈。&quot;, normal: &quot;狩衣穿起来总是很麻烦啊。&quot;, good: &quot;哦呀，领口散开了啊。&quot; },
@@ -2299,24 +2296,42 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
 你掀开盖在其他展品上的白布，发现底下的展柜全是空的，这间特别展厅只有摆在架子里的天下五剑·太刀·三日月宗近。
 
 你：
-&lt;&lt;link &quot;把国宝太刀带走？&quot; &quot;前往门口&quot;&gt;&gt;
-    &lt;&lt;set $choice = 1&gt;&gt;
-    &lt;&lt;set $spirit += 20&gt;&gt;
-    &lt;&lt;set $dark += 20&gt;&gt;
-    &lt;&lt;set $favor += 20&gt;&gt;
+&lt;&lt;link &quot;把国宝太刀带走？&quot; &quot;拿太刀&quot;&gt;&gt;
+    &lt;&lt;set $favor += 10&gt;&gt;
     &lt;&lt;set $corruption = 100&gt;&gt;
     &lt;&lt;/link&gt;&gt;
-  [[带走文物不好吧……-&gt;前往门口]]
-</tw-passagedata><tw-passagedata pid="21" name="未命名片段" tags="" position="450,350" size="100,100"></tw-passagedata><tw-passagedata pid="22" name="前往门口" tags="" position="300,350" size="100,100">&lt;&lt;if $choice eq 1&gt;&gt;
-来都来了，这不是明摆着让人拿的。
+    &lt;&lt;link &quot;带走文物不好吧&quot; &quot;前往门口&quot;&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+</tw-passagedata><tw-passagedata pid="21" name="拿太刀" tags="" position="300,350" size="100,100">来都来了，这不是明摆着让人拿的。
 
 正好检非违使的袭击，让防弹玻璃破碎一地，你靠近展台，尝试去拿那没有刀鞘的太刀本体三日月宗近。
-&lt;&lt;if random(1, 100) lte 70&gt;&gt;
+
  但一时不慎， 你的手被划破了。
-  &lt;&lt;set $stamina = Math.clamp($stamina - 10, 0, 100)&gt;&gt;
-  &lt;&lt;/if&gt;&gt;
+ 
   「主人这是在做什么呢？」
   三日月宗近伸出手，将你的手裹在掌心，妥帖地从碎玻璃中拿出来。
+  
+  「嘛，想要三日月宗近的话，我不就在这里吗？」
+  
+  你：
+&lt;&lt;link &quot;三日月宗近当然是越多越好&quot; &quot;前往门口&quot;&gt;&gt;
+    &lt;&lt;set $choice = 1&gt;&gt;
+    &lt;&lt;set $favor += 5&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot;他说的也对&quot; &quot;前往门口&quot;&gt;&gt;
+    &lt;&lt;set $choice =  3&gt;&gt;
+    &lt;&lt;set $spirit += 10&gt;&gt;
+    &lt;&lt;/link&gt;&gt;
+</tw-passagedata><tw-passagedata pid="22" name="前往门口" tags="" position="400,350" size="100,100">&lt;&lt;if $choice eq 1&gt;&gt;
+「这振也要，那振也要，三日月宗近当然是越多越好。」
+你振振有词。
+
+三日月宗近松开手，「哈哈哈，是这样啊。」
+
+
+
+ &lt;&lt;elseif $choice eq 3&gt;&gt;
+  
   
   
   
