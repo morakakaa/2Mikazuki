@@ -145,24 +145,27 @@ body.start {
 }
 
 /* =========================================================================
-   🌸 侧边栏完美终极微调版：浅蓝悬停、透明齿轮底、正确弹窗层级 🌸
+   🌸 侧边栏在右侧时的正文完美避让与居中对齐修复 🌸
    ========================================================================= */
 
-/* 1. 【折叠状态】：隐藏文字区与历史按键，消除左侧竖条 */
+/* 1. 【折叠状态】：侧边栏收起时，正文两边都不需要留空，满屏舒展 */
+/* 1. 【折叠状态】：侧边栏收起时，锚点设在右侧，彻底告别左侧黑竖条 */
 #ui-bar.stowed {
   position: fixed !important;
   top: 0 !important;
-  left: 0 !important;
+  right: 0 !important; /* 核心修改：把原本的 left: 0 改成 right: 0，让幽灵锚点彻底离开左边 */
+  left: auto !important;
   width: 0 !important;
   height: 0 !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  z-index: 999 !important;
+  z-index: 900 !important;
   overflow: visible !important;
 }
-
-#ui-bar.stowed ~ #story {
+/* 2. 【展开状态】：侧边栏在右侧弹出时，正文自动在右边空出 260px，防止文字被菜单压住或向右偏移 */
+#ui-bar:not(.stowed) ~ #story {
+  margin-right: 260px !important;
   margin-left: 0 !important;
 }
 
@@ -180,58 +183,65 @@ body.start {
   width: auto !important;
 }
 
-/* 2. 【齿轮按钮】：去除深色底座，变成透明底+金色轮子，常驻左上角 */
+/* 2. 【齿轮按钮】：固定在右下角，浅金底色配深蓝齿轮图标 */
 #ui-bar #ui-bar-toggle {
   margin: 0 !important;
-  background-color: transparent !important;
+  background-color: #f4ebd0 !important;
   border: 1px solid #d4b86a !important;
-  border-radius: 6px !important;
-  width: 36px !important;
-  height: 36px !important;
+  border-radius: 8px !important;
+  width: 42px !important;
+  height: 42px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  box-shadow: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   transition: background-color 0.2s ease !important;
   z-index: 1000 !important;
 }
 
 #ui-bar #ui-bar-toggle:hover {
-  background-color: rgba(212, 184, 106, 0.2) !important;
-  transform: none !important;
-  box-shadow: none !important;
+  background-color: #e5d5ab !important;
+  transform: scale(1.05);
 }
 
+/* 折叠时：齿轮死死钉在屏幕右下角 */
 #ui-bar.stowed #ui-bar-toggle {
   position: fixed !important;
-  top: 14px !important;
-  left: 14px !important;
-}
-
-/* 3. 【展开状态】：侧边栏浅米金底色，层级调低（确保位于弹窗下方） */
-#ui-bar:not(.stowed) {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 260px !important;
-  height: 100vh !important;
-  background-color: #f4ebd0 !important;
-  border-right: 2px solid #d4b86a !important;
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2) !important;
-  padding-top: 54px !important;
-  display: block !important;
-  z-index: 900 !important; /* 关键：低于SugarCube弹窗层级，彻底解决压在档案弹窗上面的bug */
-  overflow-y: auto !important;
-}
-
-#ui-bar:not(.stowed) #ui-bar-toggle {
-  position: absolute !important;
-  top: 14px !important;
-  right: 14px !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  top: auto !important;
   left: auto !important;
 }
 
-/* 4. 【侧边栏内部文字与选项】：三日月蓝字 */
+/* 3. 【展开状态】：侧边栏改为从【右侧】滑出，浅米金底色，层级低于弹窗 */
+#ui-bar:not(.stowed) {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  width: 260px !important;
+  height: 100vh !important;
+  background-color: #f4ebd0 !important;
+  border-left: 2px solid #d4b86a !important;
+  border-right: none !important;
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.2) !important;
+  padding-top: 54px !important;
+  display: block !important;
+  z-index: 900 !important;
+  overflow-y: auto !important;
+}
+
+/* 展开时：齿轮移到侧边栏内部的【左上角】，方便顺手点击关闭 */
+#ui-bar:not(.stowed) #ui-bar-toggle {
+  position: absolute !important;
+  top: 14px !important;
+  left: 14px !important;
+  right: auto !important;
+  bottom: auto !important;
+  box-shadow: none !important;
+}
+
+/* 4. 【侧边栏内部文字与选项】：三日月蓝字，温和浅蓝悬停 */
 #ui-bar:not(.stowed), 
 #ui-bar:not(.stowed) * {
   color: #2b4c7e !important;
@@ -247,7 +257,6 @@ body.start {
   color: #1d3861 !important;
 }
 
-/* 菜单选项正常状态 */
 #ui-bar:not(.stowed) .passage a,
 #ui-bar:not(.stowed) a {
   color: #2b4c7e !important;
@@ -257,7 +266,6 @@ body.start {
   transition: all 0.2s ease !important;
 }
 
-/* 🌸 悬停时的蓝色：换成了一个比较浅、很温和的复古蓝（#4a6fa5），文字变白 */
 #ui-bar:not(.stowed) .passage a:hover,
 #ui-bar:not(.stowed) a:hover {
   background-color: #4a6fa5 !important;
@@ -265,7 +273,6 @@ body.start {
   border-color: #4a6fa5 !important;
 }
 
-/* 顶部历史后退/前进小按键 */
 #ui-bar:not(.stowed) .ui-bar-history {
   display: flex !important;
   justify-content: flex-start !important;
@@ -295,14 +302,15 @@ body.start {
   color: #ffffff !important;
 }
 
-/* 5. 齿轮图标：改为亮金色（与边框同色），透明底座 */
+/* 5. 齿轮图标：深蓝色让它在浅金底色上特别清晰好认 */
 #ui-bar-toggle::before {
   content: "\2699" !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 20px !important;
-  color: #d4b86a !important;
+  font-size: 22px !important;
+  color: #2b4c7e !important;
   line-height: 1 !important;
 }
+
 
 #ui-bar, #ui-bar * {
   color: #e8e2d8 !important;
