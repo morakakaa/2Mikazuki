@@ -144,9 +144,164 @@ body.start {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif !important;
 }
 
-#ui-bar {
-  background-color: rgba(15, 22, 38, 0.9) !important;
-  border-right: 1px solid rgba(229, 193, 88, 0.2) !important;
+/* =========================================================================
+   🌸 侧边栏完美终极微调版：浅蓝悬停、透明齿轮底、正确弹窗层级 🌸
+   ========================================================================= */
+
+/* 1. 【折叠状态】：隐藏文字区与历史按键，消除左侧竖条 */
+#ui-bar.stowed {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  z-index: 999 !important;
+  overflow: visible !important;
+}
+
+#ui-bar.stowed ~ #story {
+  margin-left: 0 !important;
+}
+
+#ui-bar.stowed #ui-bar-body,
+#ui-bar.stowed #ui-bar-history {
+  display: none !important;
+}
+
+#ui-bar.stowed #ui-bar-tray {
+  position: static !important;
+  display: block !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: auto !important;
+}
+
+/* 2. 【齿轮按钮】：去除深色底座，变成透明底+金色轮子，常驻左上角 */
+#ui-bar #ui-bar-toggle {
+  margin: 0 !important;
+  background-color: transparent !important;
+  border: 1px solid #d4b86a !important;
+  border-radius: 6px !important;
+  width: 36px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: none !important;
+  transition: background-color 0.2s ease !important;
+  z-index: 1000 !important;
+}
+
+#ui-bar #ui-bar-toggle:hover {
+  background-color: rgba(212, 184, 106, 0.2) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+#ui-bar.stowed #ui-bar-toggle {
+  position: fixed !important;
+  top: 14px !important;
+  left: 14px !important;
+}
+
+/* 3. 【展开状态】：侧边栏浅米金底色，层级调低（确保位于弹窗下方） */
+#ui-bar:not(.stowed) {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 260px !important;
+  height: 100vh !important;
+  background-color: #f4ebd0 !important;
+  border-right: 2px solid #d4b86a !important;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2) !important;
+  padding-top: 54px !important;
+  display: block !important;
+  z-index: 900 !important; /* 关键：低于SugarCube弹窗层级，彻底解决压在档案弹窗上面的bug */
+  overflow-y: auto !important;
+}
+
+#ui-bar:not(.stowed) #ui-bar-toggle {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  left: auto !important;
+}
+
+/* 4. 【侧边栏内部文字与选项】：三日月蓝字 */
+#ui-bar:not(.stowed), 
+#ui-bar:not(.stowed) * {
+  color: #2b4c7e !important;
+  text-shadow: none !important;
+}
+
+#ui-bar:not(.stowed) #story-title {
+  margin-top: 10px !important;
+  margin-bottom: 24px !important;
+  text-align: center !important;
+  font-weight: bold !important;
+  font-size: 1.15em !important;
+  color: #1d3861 !important;
+}
+
+/* 菜单选项正常状态 */
+#ui-bar:not(.stowed) .passage a,
+#ui-bar:not(.stowed) a {
+  color: #2b4c7e !important;
+  background-color: transparent !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  transition: all 0.2s ease !important;
+}
+
+/* 🌸 悬停时的蓝色：换成了一个比较浅、很温和的复古蓝（#4a6fa5），文字变白 */
+#ui-bar:not(.stowed) .passage a:hover,
+#ui-bar:not(.stowed) a:hover {
+  background-color: #4a6fa5 !important;
+  color: #ffffff !important;
+  border-color: #4a6fa5 !important;
+}
+
+/* 顶部历史后退/前进小按键 */
+#ui-bar:not(.stowed) .ui-bar-history {
+  display: flex !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  margin-left: 14px !important;
+  margin-bottom: 12px !important;
+}
+
+#ui-bar:not(.stowed) .ui-bar-history button,
+#ui-bar:not(.stowed) #ui-history-backward,
+#ui-bar:not(.stowed) #ui-history-forward {
+  display: inline-block !important;
+  margin: 0 !important;
+  padding: 4px 10px !important;
+  background-color: #faf5e8 !important;
+  border: 1px solid #d4b86a !important;
+  border-radius: 4px !important;
+  color: #2b4c7e !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+#ui-bar:not(.stowed) .ui-bar-history button:hover,
+#ui-bar:not(.stowed) #ui-history-backward:hover,
+#ui-bar:not(.stowed) #ui-history-forward:hover {
+  background-color: #4a6fa5 !important;
+  color: #ffffff !important;
+}
+
+/* 5. 齿轮图标：改为亮金色（与边框同色），透明底座 */
+#ui-bar-toggle::before {
+  content: "\2699" !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 20px !important;
+  color: #d4b86a !important;
+  line-height: 1 !important;
 }
 
 #ui-bar, #ui-bar * {
@@ -753,7 +908,9 @@ l10nStrings.textClear = "清空";
 Config.saves.descriptions = function () {
   return State.passage;
 };
-
+/* 官方正确写法：无论任何设备、任何分辨率，一进入游戏默认全面收起侧边栏 */
+/* 官方正确写法：无论任何设备、任何分辨率，一进入游戏默认全面收起侧边栏 */
+Config.ui.stowBarInitially = true;
 /* ==========================================
    🌸 文字逐段自动浮现控制器（终极防断句 & 选项齐刷刷 & 状态栏绝对防挤下沉版） 🌸
    ========================================== */
@@ -1125,13 +1282,11 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
     &lt;&lt;set $choice = 3&gt;&gt;
     &lt;&lt;set $favor += 10&gt;&gt;
     &lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="StoryInit" tags="" position="0,0" size="100,100">&lt;&lt;silently&gt;&gt;
-  /* 跨周目永久保留数据 */
-  &lt;&lt;if not setup.persistentData&gt;&gt;
-    &lt;&lt;run setup.persistentData = {
-      unlockedEndings: [],  /* 已解锁的结局列表 */
-      collectedClues: []    /* 已收集的线索 ID 列表 */
-    }&gt;&gt;
-  &lt;&lt;/if&gt;&gt;
+  /* 跨周目永久保留数据：使用 recall 从浏览器永久存储中加载 */
+  &lt;&lt;run setup.persistentData = recall(&quot;persistentData&quot;, {
+    unlockedEndings: [],
+    collectedClues: []
+  })&gt;&gt;
 
   /* 单局游戏内的数值*/
   &lt;&lt;set $yourname = &quot;【20xx年x月x日  月曜日(祝)  15:25】&quot;&gt;&gt;         /* 玩家名字 */
@@ -1279,7 +1434,7 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
   &lt;&lt;set $debugDarkTest = false&gt;&gt;
 
   /* 3. 核心碎片配方校验逻辑 */
-  &lt;&lt;set _requiredClues = [&quot;frag_broken_crest&quot;, &quot;frag_tainted_tassel&quot;, &quot;frag_old_record&quot;, &quot;frag_blood_vow&quot;]&gt;&gt;
+  &lt;&lt;set _requiredClues = [&quot;who_are_you&quot; , &quot;clue_2&quot;,]&gt;&gt;
   &lt;&lt;set _allCluesUnlocked = false&gt;&gt;
   &lt;&lt;if setup.persistentData and setup.persistentData.collectedClues and setup.persistentData.collectedClues.length gt 0&gt;&gt;
     &lt;&lt;set _allCluesUnlocked = _requiredClues.every(function(id) {
@@ -1472,7 +1627,7 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
         &lt;span class=&quot;combat-disabled-btn&quot;&gt;污染过高 (炼结)&lt;/span&gt;
       &lt;&lt;/if&gt;&gt;
 
-      &lt;&lt;if $spirit gte 30&gt;&gt;
+      &lt;&lt;if $spirit gte 40&gt;&gt;
         &lt;&lt;button &quot;真剑必杀 [-40灵力] 伤害:80 必定命中&quot;&gt;&gt;
           &lt;&lt;set $spirit = Math.clamp($spirit - 40, 0, 100)&gt;&gt;
           &lt;&lt;set $enemy.hp -= 80&gt;&gt;          &lt;&lt;run$combatLog.push(&quot;&lt;b&gt;&lt;span style=&#39;color: #e5c158;&#39;&gt;三日月宗近&lt;/span&gt;&lt;/b&gt;：也想让主人脸上添点好颜色啊（【真剑必杀】！造成80点伤害！）&quot;)&gt;&gt;
@@ -1484,9 +1639,9 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
         &lt;span class=&quot;combat-disabled-btn&quot;&gt;灵力不足 (真剑必杀)&lt;/span&gt;
       &lt;&lt;/if&gt;&gt;
 
-      &lt;&lt;if $stamina gte 20&gt;&gt;
-        &lt;&lt;button &quot;撤离 [-20体力] 概率:70%&quot;&gt;&gt;
-          &lt;&lt;set $stamina = Math.clamp($stamina - 20, 0, 100)&gt;&gt;          &lt;&lt;if random(1, 100) lte 70&gt;&gt;          &lt;&lt;set$combatEnded to true&gt;&gt;
+      &lt;&lt;if $stamina gte 10&gt;&gt;
+        &lt;&lt;button &quot;撤离 [-10体力] 概率:90%&quot;&gt;&gt;
+          &lt;&lt;set $stamina = Math.clamp($stamina - 20, 0, 100)&gt;&gt;          &lt;&lt;if random(1, 100) lte 90&gt;&gt;          &lt;&lt;set$combatEnded to true&gt;&gt;
           &lt;&lt;set $battleOutcome to &quot;retreat&quot;&gt;&gt;
             &lt;&lt;run $combatLog.push(&quot;【撤离】成功！你带着三日月宗近撤出战场。&quot;)&gt;&gt;
             &lt;&lt;replace &quot;#combat-box&quot;&gt;&gt;&lt;&lt;include &quot;战斗轮&quot;&gt;&gt;&lt;&lt;/replace&gt;&gt;
@@ -1508,11 +1663,38 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
   &lt;&lt;/if&gt;&gt;
 &lt;/div&gt;
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="HUD界面" tags="" position="400,0" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;silently&gt;&gt;
+  /* 🌸 1. 全局数值自动安检：在把数值显示到屏幕上之前，自动把所有可能超标的变量压回 0-100 之间 */
+  &lt;&lt;set $stamina = Math.clamp($stamina ?? 0, 0, 100)&gt;&gt;
+  &lt;&lt;set $spirit = Math.clamp($spirit ?? 0, 0, 100)&gt;&gt;
+  &lt;&lt;set $dark = Math.clamp($dark ?? 0, 0, 100)&gt;&gt;
+  &lt;&lt;set $favor = Math.clamp($favor ?? 0, 0, 100)&gt;&gt;
+  &lt;&lt;set $corruption = Math.clamp($corruption ?? 0, 0, 100)&gt;&gt;
+
+  /* 🌙 2. 跨周目线索自检：确认玩家存档档案袋里是否已经集齐所有核心线索 */
+  &lt;&lt;set _requiredClues = [&quot;who_are_you&quot; , &quot;clue_2&quot;,]&gt;&gt;
+  &lt;&lt;set _allCluesUnlocked = false&gt;&gt;
+  &lt;&lt;if setup.persistentData and setup.persistentData.collectedClues and setup.persistentData.collectedClues.length gt 0&gt;&gt;
+    &lt;&lt;set _allCluesUnlocked = _requiredClues.every(function(id) {
+      return setup.persistentData.collectedClues.includes(id);
+    })&gt;&gt;
+  &lt;&lt;endif&gt;&gt;
+  /* 如果开启了开发者测试开关或者已经在档案里标记了全解锁，强制放行 */
+  &lt;&lt;if $forceAllClues or $debugDarkTest or (setup.persistentData and setup.persistentData.allCluesUnlocked)&gt;&gt;
+    &lt;&lt;set _allCluesUnlocked = true&gt;&gt;
+  &lt;&lt;endif&gt;&gt;
+
+  /* 🗝️ 3. 面板全面解锁智能总开关（核心精修点！）：
+     普通一周目新手：必须老老实实推进到阶段2（即遇到初始的三日月）才展示全状态；
+     全线索二周目及以上：只要线索齐了，且完成了阶段1（即输入完姓名点击确认来到“进入展馆”及以后），立刻全面解锁所有面板与各项数值！ */
+  &lt;&lt;set _showFullHud = ($game_stage gte 2) or ($game_stage gte 1 and _allCluesUnlocked)&gt;&gt;
+&lt;&lt;/silently&gt;&gt;
+
 &lt;!-- 🌸 固定外层大盘子：为所有界面的状态栏提供统一的暗金色边框 --&gt;
 &lt;div class=&quot;hud-container sc-native-block&quot;&gt;
   
   &lt;!-- 🌸 模块一：玩家自身信息 --&gt;
-  &lt;&lt;if $game_stage gte 2&gt;&gt;
+  &lt;&lt;if _showFullHud&gt;&gt;
     &lt;div class=&quot;hud-block&quot;&gt;
       &lt;div class=&quot;hud-row single-row&quot;&gt;
         &lt;span class=&quot;hud-name&quot;&gt;🌸 &lt;&lt;print $yourname&gt;&gt;&lt;/span&gt;
@@ -1536,7 +1718,7 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
   &lt;&lt;endif&gt;&gt;
 
   &lt;!-- 🌙 模块二：三日月宗近状态 --&gt;
-  &lt;&lt;if $game_stage gte 2&gt;&gt;
+  &lt;&lt;if _showFullHud&gt;&gt;
     &lt;div class=&quot;hud-block&quot;&gt;
       &lt;div class=&quot;hud-row stats-group-row&quot;&gt;
         &lt;span class=&quot;hud-name&quot;&gt;🌙 三日月宗近&lt;/span&gt;
@@ -1561,10 +1743,10 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
   &lt;&lt;endif&gt;&gt;
 
   &lt;!-- 🌑 模块三：暗堕三日月 --&gt;
-  &lt;&lt;if $game_stage gte 2 and _allCluesUnlocked&gt;&gt;
+  &lt;&lt;if _showFullHud and _allCluesUnlocked&gt;&gt;
     &lt;div class=&quot;hud-block dark-mikazuki-style&quot;&gt;
       &lt;div class=&quot;hud-row stats-group-row&quot;&gt;
-        &lt;span class=&quot;hud-name&quot; style=&quot;color: #ffffff !important;&quot;&gt;🌑 三日月宗近&lt;/span&gt;
+        &lt;span class=&quot;hud-name&quot; style=&quot;color: #ffffff !important;&quot;&gt;🌑 三日月宗近 胧&lt;/span&gt;
         &lt;div class=&quot;hud-stats-stack&quot;&gt;
           &lt;span class=&quot;hud-stat&quot;&gt;
             &lt;span class=&quot;stat-label color-favor&quot;&gt;好感&lt;/span&gt;
@@ -1597,10 +1779,10 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
  &lt;&lt;/if&gt;&gt;
 三日月宗近收刀入鞘，迈着悠闲的步伐走回来。
 
-忽然他身形一晃，倒向了你，你被笼在他的狩衣里。
+忽然他身形一晃，倒向了你。
 
 「无妨，只是现世缺乏灵力，稍微让我靠一下就好。」
-三日月宗近用本体太刀撑起自己，卸掉了大部分力，轻轻贴在你肩头。
+三日月宗近用本体太刀撑起自己，卸掉了大部分力，头轻轻贴在你肩上。
 
 深蓝色的碎发和金色流苏落在你肩颈，带来细微柔软的痒意。
 
@@ -1631,13 +1813,9 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
  似乎也问不出更多了。
  
  在离开之前，你决定：
-&lt;&lt;link &quot;探索周围&quot; &quot;探索特别展厅&quot;&gt;&gt;
-    &lt;&lt;set $choice = 1&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
- &lt;&lt;link &quot;休息一会儿&quot; &quot;前往门口&quot;&gt;&gt;
-    &lt;&lt;set $choice = 2&gt;&gt;
-    &lt;&lt;set $stamina += 20&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
+ 
+ [[看看周围-&gt;探索特别展厅]]
+ [[休息一会儿-&gt;在特展休息]]
 &lt;&lt;silently&gt;&gt;&lt;&lt;include &quot;清理变量&quot;&gt;&gt;&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="爱抚界面" tags="" position="500,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;if not SimpleAudio.tracks.get(&quot;mikazuki_bgm&quot;).isPlaying()&gt;&gt;
   &lt;&lt;audio &quot;mikazuki_bgm&quot; volume 0.3 play loop&gt;&gt;
@@ -1662,7 +1840,7 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
   { name: &quot;头发&quot;, zoneClass: &quot;zone-hair&quot;, bad: &quot;这样可是会扯痛的哦。&quot;, normal: &quot;哎呀，在帮我调整发饰吗？&quot;, good: &quot;很舒服哦，要是在这里睡着的话……&quot; },
   { name: &quot;耳朵&quot;, zoneClass: &quot;zone-ears&quot;, bad: &quot;虽然说是老爷爷，但并不会耳背……&quot;, normal: &quot;有什么悄悄话要对我说吗？&quot;, good: &quot;嗯……有点痒呢。不过可以再靠近点。&quot; },
   { name: &quot;脸颊&quot;, zoneClass: &quot;zone-face&quot;, bad: &quot;莫非是在不知不觉中沾了什么？&quot;, normal: &quot;主人的手真是相当暖和呢。&quot;, good: &quot;这么喜欢我的美丽吗？甚好甚好。&quot; },
-  { name: &quot;眼睛&quot;, zoneClass: &quot;zone-eyes&quot;, bad: &quot;蒙上眼睛的话，就看不见了&quot;, normal: &quot;主人喜欢映照出的新月吗？&quot;, good: &quot;这双眼睛注视着的，从始至终都是你的身影啊。&quot; },
+  { name: &quot;眼睛&quot;, zoneClass: &quot;zone-eyes&quot;, bad: &quot;蒙上我的眼睛，是有什么想法呢？&quot;, normal: &quot;主人喜欢映照出的新月吗？&quot;, good: &quot;这双眼睛注视着的，从始至终都是你的身影啊。&quot; },
   { name: &quot;嘴唇&quot;, zoneClass: &quot;zone-lips&quot;, bad: &quot;是要让老爷爷闭嘴吗？&quot;, normal: &quot;想听我说些什么？&quot;, good: &quot;只用手指啊，不深入品尝吗？&quot; },
   { name: &quot;喉结&quot;, zoneClass: &quot;zone-throat&quot;, bad: &quot;咳……稍微有些过头了呢。&quot;, normal: &quot;主人想摸的话，随便怎么摸都可以的。&quot;, good: &quot;呼，这样被把玩的感觉，也不赖。&quot; },
   { name: &quot;胸膛&quot;, zoneClass: &quot;zone-chest&quot;, bad: &quot;skinship吗？摸吧摸吧，哈哈哈。&quot;, normal: &quot;狩衣穿起来总是很麻烦啊。&quot;, good: &quot;哦呀，领口散开了啊。&quot; },
@@ -1981,6 +2159,10 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
 &lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="StoryMenu" tags="" position="100,0" size="100,100">&lt;&lt;link &quot;❤ 爱抚&quot;&gt;&gt;
   &lt;&lt;set $freeReturnPassage to passage()&gt;&gt;
   &lt;&lt;goto &quot;自由爱抚&quot;&gt;&gt;
+&lt;&lt;/link&gt;&gt;
+&lt;&lt;link &quot; [测试]重置全周目记忆&quot;&gt;&gt;
+  &lt;&lt;run forget(&quot;persistentData&quot;)&gt;&gt;
+  &lt;&lt;run UI.restart()&gt;&gt;
 &lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="自由爱抚" tags="hide" position="700,0" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;if not SimpleAudio.tracks.get(&quot;mikazuki_bgm&quot;).isPlaying()&gt;&gt;
   &lt;&lt;audio &quot;mikazuki_bgm&quot; volume 0.4 play loop&gt;&gt;
@@ -2054,7 +2236,7 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
   { name: &quot;头发&quot;, zoneClass: &quot;zone-hair&quot;, bad: &quot;这样可是会扯痛的哦。&quot;, normal: &quot;哎呀，在帮我调整发饰吗？&quot;, good: &quot;很舒服哦，要是在这里睡着的话……&quot; },
   { name: &quot;耳朵&quot;, zoneClass: &quot;zone-ears&quot;, bad: &quot;虽然说是老爷爷，但并不会耳背……&quot;, normal: &quot;有什么悄悄话要对我说吗？&quot;, good: &quot;嗯……有点痒呢。不过可以再靠近点。&quot; },
   { name: &quot;脸颊&quot;, zoneClass: &quot;zone-face&quot;, bad: &quot;莫非是在不知不觉中沾了什么？&quot;, normal: &quot;主人的手真是相当暖和呢。&quot;, good: &quot;这么喜欢我的美丽吗？甚好甚好。&quot; },
-  { name: &quot;眼睛&quot;, zoneClass: &quot;zone-eyes&quot;, bad: &quot;蒙上眼睛的话，就看不见了&quot;, normal: &quot;主人喜欢映照出的新月吗？&quot;, good: &quot;这双眼睛注视着的，从始至终都是你的身影啊。&quot; },
+  { name: &quot;眼睛&quot;, zoneClass: &quot;zone-eyes&quot;, bad: &quot;蒙上我的眼睛，是有什么想法呢？&quot;, normal: &quot;主人喜欢映照出的新月吗？&quot;, good: &quot;这双眼睛注视着的，从始至终都是你的身影啊。&quot; },
   { name: &quot;嘴唇&quot;, zoneClass: &quot;zone-lips&quot;, bad: &quot;是要让老爷爷闭嘴吗？&quot;, normal: &quot;想听我说些什么？&quot;, good: &quot;只用手指啊，不深入品尝吗？&quot; },
   { name: &quot;喉结&quot;, zoneClass: &quot;zone-throat&quot;, bad: &quot;咳……稍微有些过头了呢。&quot;, normal: &quot;主人想摸的话，随便怎么摸都可以的。&quot;, good: &quot;呼，这样被把玩的感觉，也不赖。&quot; },
   { name: &quot;胸膛&quot;, zoneClass: &quot;zone-chest&quot;, bad: &quot;skinship吗？摸吧摸吧，哈哈哈。&quot;, normal: &quot;狩衣穿起来总是很麻烦啊。&quot;, good: &quot;哦呀，领口散开了啊。&quot; },
@@ -2297,45 +2479,217 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
 
 你：
 &lt;&lt;link &quot;把国宝太刀带走？&quot; &quot;拿太刀&quot;&gt;&gt;
+    &lt;&lt;set $stamina -= 10&gt;&gt;
     &lt;&lt;set $favor += 10&gt;&gt;
     &lt;&lt;set $corruption = 100&gt;&gt;
     &lt;&lt;/link&gt;&gt;
-    &lt;&lt;link &quot;带走文物不好吧&quot; &quot;前往门口&quot;&gt;&gt;
-    &lt;&lt;/link&gt;&gt;
+    [[离开展厅-&gt;走廊]]
+
 </tw-passagedata><tw-passagedata pid="21" name="拿太刀" tags="" position="300,350" size="100,100">来都来了，这不是明摆着让人拿的。
 
 正好检非违使的袭击，让防弹玻璃破碎一地，你靠近展台，尝试去拿那没有刀鞘的太刀本体三日月宗近。
 
  但一时不慎， 你的手被划破了。
  
-  「主人这是在做什么呢？」
+  「哎呀，还是要小心啊，主人。」
   三日月宗近伸出手，将你的手裹在掌心，妥帖地从碎玻璃中拿出来。
   
   「嘛，想要三日月宗近的话，我不就在这里吗？」
   
   你：
-&lt;&lt;link &quot;三日月宗近当然是越多越好&quot; &quot;前往门口&quot;&gt;&gt;
+&lt;&lt;link &quot;三日月宗近当然是越多越好&quot; &quot;特别展厅的抉择&quot;&gt;&gt;
     &lt;&lt;set $choice = 1&gt;&gt;
-    &lt;&lt;set $favor += 5&gt;&gt;
+    &lt;&lt;set $dark += 10&gt;&gt;
     &lt;&lt;/link&gt;&gt;
-&lt;&lt;link &quot;他说的也对&quot; &quot;前往门口&quot;&gt;&gt;
-    &lt;&lt;set $choice =  3&gt;&gt;
-    &lt;&lt;set $spirit += 10&gt;&gt;
+&lt;&lt;link &quot;他说的也对&quot; &quot;特别展厅的抉择&quot;&gt;&gt;
+    &lt;&lt;set $choice =  2&gt;&gt;
     &lt;&lt;/link&gt;&gt;
-</tw-passagedata><tw-passagedata pid="22" name="前往门口" tags="" position="400,350" size="100,100">&lt;&lt;if $choice eq 1&gt;&gt;
+</tw-passagedata><tw-passagedata pid="22" name="特别展厅的抉择" tags="" position="400,350" size="100,100">&lt;&lt;if $choice eq 1 or $choice eq 2&gt;&gt;\
+    &lt;&lt;if $choice eq 1&gt;&gt;
 「这振也要，那振也要，三日月宗近当然是越多越好。」
 你振振有词。
 
 三日月宗近松开手，「哈哈哈，是这样啊。」
 
+你盯着那振文物太刀，然后意识到：
+    &lt;&lt;elseif $choice eq 2&gt;&gt;
+说的也是，你已经有自己的刀剑男士三日月宗近了，真对太刀感兴趣的话，他腰间不就是本体的幻化吗？
+    &lt;&lt;/if&gt;&gt;
+没有刀鞘的太刀本体怎么带走，这确实也是个问题。
+而且，真的能大摇大摆地把博物馆的文物带走吗？
+
+所以也就只是单纯想想罢了。
+&lt;&lt;/if&gt;&gt;\
+&lt;&lt;if $choice eq 3&gt;&gt;
+   你：「不用那么麻烦，让我靠在你怀里休息一会儿就行。」
+   
+   「……哎呀，既然主人愿意，那就一起休息会儿吧。」
+   
+   三日月宗近笑眯眯地将你笼在他的深蓝色狩衣里。
+   
+   你闻到了淡淡的熏香，虽然周围环境诡异陌生，但在他的怀抱中，你获得了片刻的安宁。
+&lt;&lt;/if&gt;&gt;
+[[离开展厅-&gt;走廊]]</tw-passagedata><tw-passagedata pid="23" name="在特展休息" tags="" position="725,225" size="100,100">你有些疲乏，决定休息一会儿。
+
+但环顾四周，也没找到座椅。
+
+「要休息么？外面应当会有椅子吧。」
+看出来你在寻找什么，三日月宗近开口。
+
+你：
+ &lt;&lt;link &quot;在走廊外休息&quot; &quot;走廊&quot;&gt;&gt;
+   &lt;&lt;set $restChoice = 1&gt;&gt;
+&lt;&lt;/link&gt;&gt; 
+ &lt;&lt;link &quot;在三日月宗近怀里休息？&quot; &quot;特别展厅的抉择&quot;&gt;&gt;
+   &lt;&lt;set $choice =  3&gt;&gt;
+   &lt;&lt;set $spirit += 10&gt;&gt;
+   &lt;&lt;set $stamina += 20&gt;&gt;
+&lt;&lt;/link&gt;&gt;  </tw-passagedata><tw-passagedata pid="24" name="走廊" tags="" position="475,350" size="100,100">&lt;&lt;silently&gt;&gt;
+  &lt;&lt;set $transitionExit to &quot;博物馆大门&quot;&gt;&gt;
+  &lt;&lt;if $restChoice eq 1&gt;&gt;
+    &lt;&lt;set $stamina = Math.clamp($stamina + 15, 0, 100)&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+  &lt;&lt;/silently&gt;&gt;\
+  &lt;&lt;include &quot;过渡随机事件盒&quot;&gt;&gt;\
+&lt;&lt;if $eventTriggered is false&gt;&gt;\
+  你和三日月宗近一起穿过走廊，白天放下的遮光帘已经拉起，巨大的落地窗外漆黑一片。
+   
+  没有星星，没有月亮，就好像外面什么都没有。
+  &lt;&lt;if $restChoice eq 1&gt;&gt;
+    你坐在供游客休息的长椅上，感受着片刻的安宁，三日月宗近站在不远处。
+  &lt;&lt;/if&gt;&gt;
+  你越看窗外越觉得奇怪，哪怕是阴天的夜晚，也该隐隐能看见什么。
+   
+  &lt;&lt;link &quot;外面怎么了？&quot; &quot;所谓伊人&quot;&gt;&gt;
+    &lt;&lt;run setup.persistentData.collectedClues.pushUnique(&quot;who_are_you&quot;)&gt;&gt;
+    &lt;&lt;run memorize(&quot;persistentData&quot;, setup.persistentData)&gt;&gt;
+  &lt;&lt;/link&gt;&gt; 
+  [[不去过多探究-&gt;博物馆大门]]
+&lt;&lt;/if&gt;&gt;
+</tw-passagedata><tw-passagedata pid="25" name="过渡随机事件盒" tags="" position="800,0" size="100,100">&lt;&lt;silently&gt;&gt;
+  /* 1. 进盒先丢个1到100的骰子 */
+  &lt;&lt;set _roll = random(1, 100)&gt;&gt;
+  
+  /* 2. 默认先挂上小牌子，标记为“触发了特殊事件” */
+  &lt;&lt;set $eventTriggered to true&gt;&gt;
+
+  /* 3. 准备好爱抚页面的12个身体部位和对应台词 */
+  &lt;&lt;set _touchParts = [
+    { name: &quot;头发&quot;, bad: &quot;这样可是会扯痛的哦。&quot;, normal: &quot;哎呀，在帮我调整发饰吗？&quot;, good: &quot;很舒服哦，要是在这里睡着的话……&quot; },
+    { name: &quot;耳朵&quot;, bad: &quot;虽然说是老爷爷，但并不会耳背……&quot;, normal: &quot;有什么悄悄话要对我说吗？&quot;, good: &quot;嗯……有点痒呢。不过可以再靠近点。&quot; },
+    { name: &quot;脸颊&quot;, bad: &quot;莫非是在不知不觉中沾了什么？&quot;, normal: &quot;主人的手真是相当暖和呢。&quot;, good: &quot;这么喜欢我的美丽吗？甚好甚好。&quot; },
+    { name: &quot;眼睛&quot;, bad: &quot;蒙上我的眼睛，是有什么想法呢？&quot;, normal: &quot;主人喜欢映照出的新月吗？&quot;, good: &quot;这双眼睛注视着的，从始至终都是你的身影啊。&quot; },
+    { name: &quot;嘴唇&quot;, bad: &quot;是要让老爷爷闭嘴吗？&quot;, normal: &quot;想听我说些什么？&quot;, good: &quot;只用手指啊，不深入品尝吗？&quot; },
+    { name: &quot;喉结&quot;, bad: &quot;咳……稍微有些过头了呢。&quot;, normal: &quot;主人想摸的话，随便怎么摸都可以的。&quot;, good: &quot;呼，这样被把玩的感觉，也不赖。&quot; },
+    { name: &quot;胸膛&quot;, bad: &quot;skinship吗？摸吧摸吧，哈哈哈。&quot;, normal: &quot;狩衣穿起来总是很麻烦啊。&quot;, good: &quot;哦呀，领口散开了啊。&quot; },
+    { name: &quot;手&quot;, bad: &quot;是不是脱下手套会更好？&quot;, normal: &quot;握紧了，就不要再放开。&quot;, good: &quot;说我的手指很长？嗯，尤其是食指和中指……&quot; },
+    { name: &quot;小腹&quot;, bad: &quot;有点饿了，可惜没有茶点。&quot;, normal: &quot;如果你喜欢的话，再往深入一点也无妨。&quot;, good: &quot;我是不是可以期待什么了？&quot; },
+    { name: &quot;腰&quot;, bad: &quot;哈哈哈，这里还是有些敏感的&quot;, normal: &quot;紧紧靠在一起，再好不过了。&quot;, good: &quot;真想像这样将你永远圈在怀里啊。&quot; },
+    { name: &quot;臀&quot;, bad: &quot;还要继续摸吗？&quot;, normal: &quot;嘛，手感怎么样？&quot;, good: &quot;哈哈哈，真是很直白的暗示呢。&quot; },
+    { name: &quot;腿&quot;, bad: &quot;想悠闲地散会儿步啊&quot;, normal: &quot;手伸进来的地方，有点意想不到呢。&quot;, good: &quot;听说现世里腿有当枕头的作用，要来休息一会儿吗？&quot; }
+  ]&gt;&gt;
+&lt;&lt;/silently&gt;&gt;\
+&lt;&lt;if _roll lte 10&gt;&gt;
+【随机事件：敌人袭击】
+
+  走廊里的灯光忽明忽暗，阴影中猛然窜出一道极快的刀影！是被吸引而来的敌短刀。
+
+  「嘛，我还是挺怕麻烦的。」
+  
+  三日月宗近拇指抵住刀镡。
+
+  &lt;&lt;link &quot;⚔️ 拔刀迎击！&quot; &quot;战斗轮&quot;&gt;&gt;
+    &lt;&lt;set $enemy to { name: &quot;敌短刀&quot;, hp: 20, maxHp: 20 }&gt;&gt;
+    &lt;&lt;set $combatLog to [&quot;&lt;i&gt;&lt;span style=&#39;color: #e55353;&#39;&gt;敌短刀自黑暗中潜行扑出！&lt;/span&gt;&lt;/i&gt;&quot;]&gt;&gt;
+    &lt;&lt;set $combatEnded to false&gt;&gt;
+    /* 这里非常聪明：打赢或者撤退后，直接去往当前房间设定的出口 */
+    &lt;&lt;set $winPassage to $transitionExit&gt;&gt;
+    &lt;&lt;set $retreatPassage to $transitionExit&gt;&gt;
+  &lt;&lt;/link&gt;&gt;
+
+&lt;&lt;elseif _roll lte 20&gt;&gt;
+ 【随机事件：敌人袭击】
+ 
+  拐角处一道充满冷冽杀气的黑影浮现！是一振凶狠的敌肋差。
+
+  「稍等片刻，让我处理一下。」
+  三日月宗近迈步上前。
+
+  &lt;&lt;link &quot;⚔️ 拔刀迎击！&quot; &quot;战斗轮&quot;&gt;&gt;
+    &lt;&lt;set $enemy to { name: &quot;敌肋差&quot;, hp: 40, maxHp: 40 }&gt;&gt;
+    &lt;&lt;set $combatLog to [&quot;&lt;i&gt;&lt;span style=&#39;color: #e55353;&#39;&gt;敌肋差直刺而来！&lt;/span&gt;&lt;/i&gt;&quot;]&gt;&gt;
+    &lt;&lt;set $combatEnded to false&gt;&gt;
+    &lt;&lt;set $winPassage to $transitionExit&gt;&gt;
+    &lt;&lt;set $retreatPassage to $transitionExit&gt;&gt;
+  &lt;&lt;/link&gt;&gt;
+
+&lt;&lt;elseif _roll lte 40&gt;&gt;
+  /* --- 【20%概率：随机暧昧事件（完全同步爱抚页面数据）】 --- */
+  &lt;&lt;silently&gt;&gt;
+    &lt;&lt;set _part = _touchParts[random(0, _touchParts.length - 1)]&gt;&gt;
+    /* 独立判定：20%概率涨5点暗堕，20%概率涨5点好感 */
+    &lt;&lt;if random(1, 100) lte 20&gt;&gt;
+      &lt;&lt;set $corruption = Math.clamp($corruption + 5, 0, 100)&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+    &lt;&lt;if random(1, 100) lte 20&gt;&gt;
+      &lt;&lt;set $favor = Math.clamp($favor + 5, 0, 100)&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+
+    &lt;&lt;set _touchRoll = random(1, 3)&gt;&gt;
+    &lt;&lt;if _touchRoll eq 1&gt;&gt;
+      &lt;&lt;set _addSpirit = random(4, 7)&gt;&gt;
+      &lt;&lt;set _line = _part.bad&gt;&gt;
+      &lt;&lt;set _color = &quot;#aaaaaa&quot;&gt;&gt;
+    &lt;&lt;elseif _touchRoll eq 2&gt;&gt;
+      &lt;&lt;set _addSpirit = random(8, 11)&gt;&gt;
+      &lt;&lt;set _line = _part.normal&gt;&gt;
+      &lt;&lt;set _color = &quot;#4ea8de&quot;&gt;&gt;
+    &lt;&lt;else&gt;&gt;
+      &lt;&lt;set _addSpirit = random(12, 15)&gt;&gt;
+      &lt;&lt;set _line = _part.good&gt;&gt;
+      &lt;&lt;set _color = &quot;#ff85a0&quot;&gt;&gt;
+      &lt;&lt;set $corruption = Math.clamp($corruption + 5, 0, 100)&gt;&gt;
+    &lt;&lt;/if&gt;&gt;
+
+    &lt;&lt;set $spirit = Math.clamp($spirit + _addSpirit, 0, 100)&gt;&gt;
+  &lt;&lt;/silently&gt;&gt;\
+  【随机事件：亲密触碰】
+  
+  当你离开此地前行时，一个不小心，你摸到了三日月宗近的&lt;span style=&quot;color: #ff85a0; font-weight: bold;&quot;&gt;&lt;&lt;print _part.name&gt;&gt;&lt;/span&gt;。
+  
+三日月宗近：「嗯？」
+三日月宗近：「&lt;&lt;print _line&gt;&gt;」
+  &lt;i&gt;&lt;span @style=&quot;&#39;color: &#39; + _color + &#39;; font-size: 0.95em;&#39;&quot;&gt;[灵力 +&lt;&lt;print _addSpirit&gt;&gt;]&lt;/span&gt;&lt;/i&gt;
+  
+你若无其事收回手，
+  &lt;&lt;link &quot;继续前进&quot;&gt;&gt;
+    &lt;&lt;goto $transitionExit&gt;&gt;
+  &lt;&lt;/link&gt;&gt;
+
+&lt;&lt;else&gt;&gt;
+  /* --- 【60%概率：无事发生！】 --- */
+  &lt;&lt;silently&gt;&gt;
+    /* 悄悄把小牌子换成 false，告诉外面：今天啥也没有，把普通剧情放出来吧！ */
+    &lt;&lt;set $eventTriggered to false&gt;&gt;
+  &lt;&lt;/silently&gt;&gt;\
+&lt;&lt;/if&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="所谓伊人" tags="" position="475,450" size="100,100">
+你一直盯着窗外的深沉黑暗看。
+
+直到一抹白光闪过。
+
+月光如流水，自刀刃上倾泻，片刻间映亮了白绸半掩的双眸。
+
+「呃啊——」检非违使被劈开，化为黑雾。
+
+翻飞，辗转，轻盈步伐如月下的舞者，也是每一击带来死亡的彼岸之影。
+
+「主人在看什么？」
+身侧的三日月宗近的声音将你拉回来，他轻声问。
 
 
- &lt;&lt;elseif $choice eq 3&gt;&gt;
-  
-  
-  
-  
+你眨了眨眼，那抹如月般皎白的身影已隐于黑暗，刚才似乎只是幻觉。
 
+  [[该离开了，继续前进吧-&gt;博物馆大门]]</tw-passagedata><tw-passagedata pid="27" name="博物馆大门" tags="" position="575,350" size="100,100">占位。
 </tw-passagedata></tw-storydata>
 	<script id="script-sugarcube" type="text/javascript">
 	/*! SugarCube JS */
