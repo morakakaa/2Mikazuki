@@ -697,6 +697,28 @@ body.daytime .hud-block.dark-mikazuki-style {
   background-color: #151e33 !important;
   color: #f7e7ac !important;
   border-bottom: 1px solid rgba(229, 193, 88, 0.3) !important;
+}
+
+/* 月亮点击 */
+.touken-moon {
+  position: fixed;
+  pointer-events: none;
+  font-size: 20px;
+  user-select: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  animation: moonFadeOut 1.5s ease-out forwards;
+}
+
+@keyframes moonFadeOut {
+  0% {
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0;
+  }
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* 汉化主侧边栏及提示 */
 l10nStrings.savesTitle = "档案";
 l10nStrings.restartTitle = "新的开始";
@@ -957,6 +979,23 @@ $(document).on(':passagedisplay', function (ev) {
         observer.disconnect();
         $(document).off('click.autoReveal');
     });
+});
+
+/* 点击出现月亮 */
+
+document.addEventListener('click', function(e) {
+    let moon = document.createElement('div');
+    moon.className = 'touken-moon';
+    moon.innerHTML = '🌙';
+    
+    // 直接把月亮生成在你点击的精确位置
+    moon.style.left = e.clientX + 'px';
+    moon.style.top = e.clientY + 'px';
+    
+    document.body.appendChild(moon);
+    
+    // 1.5秒动画结束后自动从页面移除这个元素
+    setTimeout(function() { moon.remove(); }, 1500);
 });</script><tw-tag name="start" color="blue"></tw-tag><tw-tag name="daytime" color="orange"></tw-tag><tw-tag name="hide" color="yellow"></tw-tag><tw-passagedata pid="1" name="开始" tags="start" position="100,100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;start-container&quot;&gt;
   &lt;!-- 密集飘落的樱花花瓣阵列 --&gt;
@@ -1086,7 +1125,7 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
   /* 暗堕三日月数值 */
   &lt;&lt;set $favor = 0&gt;&gt;        /* 好感 */
   &lt;&lt;set $corruption = 90&gt;&gt;   /* 暗堕值 */
-  &lt;&lt;cacheaudio &quot;mikazuki_bgm&quot; &quot;https://github.com/user-attachments/files/30375411/Theme_of_Mikazuki_Munechika.mp3&quot;&gt;&gt;
+  &lt;&lt;cacheaudio &quot;mikazuki_bgm&quot; &quot;audio/Mikazuki-attendantbgm.mp3&quot;&gt;&gt;
 &lt;&lt;/silently&gt;&gt;
 </tw-passagedata><tw-passagedata pid="5" name="三日月展厅" tags="daytime" position="400,100" size="100,100">&lt;&lt;if $choice eq 1&gt;&gt;
   你来到博物馆的咖啡区。
