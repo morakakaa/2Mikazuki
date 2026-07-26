@@ -149,7 +149,6 @@ body.start {
    ========================================================================= */
 
 /* 1. 【折叠状态】：侧边栏收起时，正文两边都不需要留空，满屏舒展 */
-/* 1. 【折叠状态】：侧边栏收起时，锚点设在右侧，彻底告别左侧黑竖条 */
 #ui-bar.stowed {
   position: fixed !important;
   top: 0 !important;
@@ -231,13 +230,13 @@ body.start {
   overflow-y: auto !important;
 }
 
-/* 展开时：齿轮移到侧边栏内部的【左上角】，方便顺手点击关闭 */
+/* 展开时：齿轮稳稳移到侧边栏内部的【右下角】，与折叠时的习惯完美呼应 */
 #ui-bar:not(.stowed) #ui-bar-toggle {
   position: absolute !important;
-  top: 14px !important;
-  left: 14px !important;
-  right: auto !important;
-  bottom: auto !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  top: auto !important;
+  left: auto !important;
   box-shadow: none !important;
 }
 
@@ -885,6 +884,14 @@ body.daytime .hud-block.dark-mikazuki-style {
     opacity: 0;
     text-shadow: 0 0 4px rgba(255, 245, 205, 0), 0 0 8px rgba(255, 220, 140, 0);
   }
+}
+
+/* =========================================================================
+   🌸 终极治愈：强制所有爱抚与互动大容器在屏幕正中央完美居中对称 🌸
+   ========================================================================= */
+
+.touch-page-container {
+  margin: 0 auto !important;
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* 汉化主侧边栏及提示 */
 l10nStrings.savesTitle = "档案";
 l10nStrings.restartTitle = "新的开始";
