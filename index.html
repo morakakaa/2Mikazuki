@@ -104,10 +104,11 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="双月之夜" startnode="1" creator="Twine" creator-version="2.12.0" format="SugarCube" format-version="2.37.3" ifid="7C4F8B68-F545-450F-8094-F1204154FF4B" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* ==========================================
-   三日月宗近主题：完整无缺、完美对齐与视觉精修版 CSS
-   ========================================== */
+	<tw-storydata name="双月之夜" startnode="1" creator="Twine" creator-version="2.12.0" format="SugarCube" format-version="2.37.3" ifid="7C4F8B68-F545-450F-8094-F1204154FF4B" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* =========================================================================
+   🌸 博物馆的双月之夜 · 三日月宗近主题：终极完美整合版样式表 🌸
+   ========================================================================= */
 
+/* --- 1. 全局基础页面与日夜渐变背景 --- */
 html, body {
   background-color: #151e33; 
   background-image: linear-gradient(to bottom, #233154 0%, #17223b 50%, #101828 100%);
@@ -130,10 +131,27 @@ body.start {
   animation: startDayToNight 4s ease-in-out forwards;
 }
 
+body.daytime {
+  animation: none !important;
+  background-image: none !important;
+  background-color: #fbf5f0 !important;
+}
+
+body.daytime #story {
+  color: #2c2523 !important;
+}
+
+body.daytime #passages { 
+  color: #3d3431 !important; 
+}
+
+/* --- 2. 页面阅读区域与智能边距控制 --- */
+/* 普通剧情页面：左右留出舒适的阅读间隙，手机上绝不贴边 */
 #passages {
-  padding: 0 !important;
+  padding: 20px 20px !important;
   margin: 0 auto !important;
   max-width: 800px !important;
+  box-sizing: border-box !important;
 }
 
 .passage[data-passage="开始"] {
@@ -144,177 +162,18 @@ body.start {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif !important;
 }
 
-/* =========================================================================
-   🌸 侧边栏在右侧时的正文完美避让与居中对齐修复 🌸
-   ========================================================================= */
-
-/* 1. 【折叠状态】：侧边栏收起时，正文两边都不需要留空，满屏舒展 */
-#ui-bar.stowed {
-  position: fixed !important;
-  top: 0 !important;
-  right: 0 !important; /* 核心修改：把原本的 left: 0 改成 right: 0，让幽灵锚点彻底离开左边 */
-  left: auto !important;
-  width: 0 !important;
-  height: 0 !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  z-index: 900 !important;
-  overflow: visible !important;
-}
-/* 2. 【展开状态】：侧边栏在右侧弹出时，正文自动在右边空出 260px，防止文字被菜单压住或向右偏移 */
-#ui-bar:not(.stowed) ~ #story {
-  margin-right: 260px !important;
+/* 🌸 核心分流：封面开始页、爱抚界面、自由爱抚，左右完全不留空白，满屏贴边展现立绘！ */
+.passage[data-passage="开始"],
+.passage[data-passage="爱抚界面"],
+.passage[data-passage="自由爱抚"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   margin-left: 0 !important;
+  margin-right: 0 !important;
+  max-width: 100% !important;
 }
 
-#ui-bar.stowed #ui-bar-body,
-#ui-bar.stowed #ui-bar-history {
-  display: none !important;
-}
-
-#ui-bar.stowed #ui-bar-tray {
-  position: static !important;
-  display: block !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  width: auto !important;
-}
-
-/* 2. 【齿轮按钮】：固定在右下角，浅金底色配深蓝齿轮图标 */
-#ui-bar #ui-bar-toggle {
-  margin: 0 !important;
-  background-color: #f4ebd0 !important;
-  border: 1px solid #d4b86a !important;
-  border-radius: 8px !important;
-  width: 42px !important;
-  height: 42px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-  transition: background-color 0.2s ease !important;
-  z-index: 1000 !important;
-}
-
-#ui-bar #ui-bar-toggle:hover {
-  background-color: #e5d5ab !important;
-  transform: scale(1.05);
-}
-
-/* 折叠时：齿轮死死钉在屏幕右下角 */
-#ui-bar.stowed #ui-bar-toggle {
-  position: fixed !important;
-  bottom: 20px !important;
-  right: 20px !important;
-  top: auto !important;
-  left: auto !important;
-}
-
-/* 3. 【展开状态】：侧边栏改为从【右侧】滑出，浅米金底色，层级低于弹窗 */
-#ui-bar:not(.stowed) {
-  position: fixed !important;
-  top: 0 !important;
-  right: 0 !important;
-  left: auto !important;
-  width: 260px !important;
-  height: 100vh !important;
-  background-color: #f4ebd0 !important;
-  border-left: 2px solid #d4b86a !important;
-  border-right: none !important;
-  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.2) !important;
-  padding-top: 54px !important;
-  display: block !important;
-  z-index: 900 !important;
-  overflow-y: auto !important;
-}
-
-/* 展开时：齿轮稳稳移到侧边栏内部的【右下角】，与折叠时的习惯完美呼应 */
-#ui-bar:not(.stowed) #ui-bar-toggle {
-  position: absolute !important;
-  bottom: 20px !important;
-  right: 20px !important;
-  top: auto !important;
-  left: auto !important;
-  box-shadow: none !important;
-}
-
-/* 4. 【侧边栏内部文字与选项】：三日月蓝字，温和浅蓝悬停 */
-#ui-bar:not(.stowed), 
-#ui-bar:not(.stowed) * {
-  color: #2b4c7e !important;
-  text-shadow: none !important;
-}
-
-#ui-bar:not(.stowed) #story-title {
-  margin-top: 10px !important;
-  margin-bottom: 24px !important;
-  text-align: center !important;
-  font-weight: bold !important;
-  font-size: 1.15em !important;
-  color: #1d3861 !important;
-}
-
-#ui-bar:not(.stowed) .passage a,
-#ui-bar:not(.stowed) a {
-  color: #2b4c7e !important;
-  background-color: transparent !important;
-  text-decoration: none !important;
-  font-weight: bold !important;
-  transition: all 0.2s ease !important;
-}
-
-#ui-bar:not(.stowed) .passage a:hover,
-#ui-bar:not(.stowed) a:hover {
-  background-color: #4a6fa5 !important;
-  color: #ffffff !important;
-  border-color: #4a6fa5 !important;
-}
-
-#ui-bar:not(.stowed) .ui-bar-history {
-  display: flex !important;
-  justify-content: flex-start !important;
-  gap: 8px !important;
-  margin-left: 14px !important;
-  margin-bottom: 12px !important;
-}
-
-#ui-bar:not(.stowed) .ui-bar-history button,
-#ui-bar:not(.stowed) #ui-history-backward,
-#ui-bar:not(.stowed) #ui-history-forward {
-  display: inline-block !important;
-  margin: 0 !important;
-  padding: 4px 10px !important;
-  background-color: #faf5e8 !important;
-  border: 1px solid #d4b86a !important;
-  border-radius: 4px !important;
-  color: #2b4c7e !important;
-  box-shadow: none !important;
-  transition: all 0.2s ease !important;
-}
-
-#ui-bar:not(.stowed) .ui-bar-history button:hover,
-#ui-bar:not(.stowed) #ui-history-backward:hover,
-#ui-bar:not(.stowed) #ui-history-forward:hover {
-  background-color: #4a6fa5 !important;
-  color: #ffffff !important;
-}
-
-/* 5. 齿轮图标：深蓝色让它在浅金底色上特别清晰好认 */
-#ui-bar-toggle::before {
-  content: "\2699" !important;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 22px !important;
-  color: #2b4c7e !important;
-  line-height: 1 !important;
-}
-
-
-#ui-bar, #ui-bar * {
-  color: #e8e2d8 !important;
-}
-
+/* --- 3. 基础文本、链接与输入框样式 --- */
 #story-title {
   color: #f7e7ac !important;
 }
@@ -328,6 +187,16 @@ body.start {
 .passage a:hover {
   color: #fff2c4 !important;
   text-shadow: 0 0 8px rgba(229, 193, 88, 0.8) !important;
+}
+
+body.daytime .passage a { 
+  color: #a67c1e !important; 
+  border-bottom: 1px dashed rgba(166, 124, 30, 0.5) !important; 
+}
+
+body.daytime .passage a:hover { 
+  color: #d49e24 !important; 
+  text-shadow: 0 0 5px rgba(212, 158, 36, 0.3) !important; 
 }
 
 input[type="text"], 
@@ -354,6 +223,19 @@ input::placeholder,
   opacity: 1 !important;
 }
 
+.passage button {
+  background-color: transparent !important;
+  border: 1px solid rgba(229, 193, 88, 0.5) !important;
+  color: #e5c158 !important;
+  padding: 8px 24px !important;
+  border-radius: 4px !important;
+  font-family: inherit !important;
+  font-size: 1.1em !important;
+  letter-spacing: 0.1em !important;
+  transition: all 0.3s ease !important;
+}
+
+/* --- 4. 封面专用：樱花飘落与三日月坠落特效 --- */
 .sakura {
   position: absolute;
   top: -30px;
@@ -525,42 +407,7 @@ input::placeholder,
   to { opacity: 1; }
 }
 
-body.daytime {
-  animation: none !important;
-  background-image: none !important;
-  background-color: #fbf5f0 !important;
-}
-
-body.daytime #story {
-  color: #2c2523 !important;
-}
-
-body.daytime #passages { 
-  color: #3d3431 !important; 
-}
-
-body.daytime .passage a { 
-  color: #a67c1e !important; 
-  border-bottom: 1px dashed rgba(166, 124, 30, 0.5) !important; 
-}
-
-body.daytime .passage a:hover { 
-  color: #d49e24 !important; 
-  text-shadow: 0 0 5px rgba(212, 158, 36, 0.3) !important; 
-}
-
-.passage button {
-  background-color: transparent !important;
-  border: 1px solid rgba(229, 193, 88, 0.5) !important;
-  color: #e5c158 !important;
-  padding: 8px 24px !important;
-  border-radius: 4px !important;
-  font-family: inherit !important;
-  font-size: 1.1em !important;
-  letter-spacing: 0.1em !important;
-  transition: all 0.3s ease !important;
-}
-
+/* --- 5. 剧情文字逐段平滑显现特效 --- */
 .sc-story-block {
     display: block !important;
     margin-top: 1.2em !important;
@@ -568,7 +415,6 @@ body.daytime .passage a:hover {
     line-height: 1.8 !important;
 }
 
-/* 🌙 已升级：加入显卡硬件加速（translateZ 和 will-change），实现德芙般极致丝滑的文字浮现 */
 .hidden-paragraph {
     opacity: 0 !important;
     transform: translateY(10px) translateZ(0) !important;
@@ -591,7 +437,7 @@ body.daytime .passage a:hover {
     margin-bottom: 0.8em !important; 
 }
 
-/* HUD 状态栏样式 */
+/* --- 6. HUD 角色状态栏与体力灵力条美化 --- */
 .hud-container {
   width: 100%;
   max-width: 420px;
@@ -627,41 +473,40 @@ body.daytime .hud-block + .hud-block {
   border-top-color: rgba(166, 124, 30, 0.22);
 }
 
-.hud-row.single-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 8px;
-}
-
-.hud-row.name-row {
-  margin-bottom: 3px;
-}
-
-.hud-row.stats-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 8px;
-}
-
-.hud-row.single-row > .hud-stat,
-.hud-row.stats-row > *:last-child {
-  justify-self: end !important;
-  text-align: right !important;
-}
-
 .hud-name {
   font-weight: bold;
   color: #f7e7ac;
   font-size: 0.92em;
   display: inline-block;
   white-space: nowrap;
-  margin-left: 2px; 
+  margin-left: -12px !important;
 }
 
 body.daytime .hud-name {
   color: #8c6513;
+}
+
+.hud-row.single-row,
+.hud-row.stats-group-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hud-single-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: -8px !important;
+}
+
+.hud-stats-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+  margin-right: -8px !important;
 }
 
 .hud-stat {
@@ -669,21 +514,16 @@ body.daytime .hud-name {
   align-items: center;
   gap: 6px; 
   white-space: nowrap;
+  justify-content: flex-end !important;
 }
 
-.stat-label {
-  font-size: 0.95em;
-}
-
+.stat-label { font-size: 0.95em; }
 .color-stamina { color: #3eb370 !important; font-weight: bold; }
 .hud-bar-fill.green { background-color: #3eb370 !important; }
-
 .color-spirit { color: #4ea8de !important; font-weight: bold; }
 .hud-bar-fill.blue  { background-color: #4ea8de !important; }
-
 .color-favor { color: #ff85a0 !important; font-weight: bold; }
 .hud-bar-fill.pink  { background-color: #ff85a0 !important; }
-
 .color-dark { color: #e55353 !important; font-weight: bold; }
 .hud-bar-fill.red   { background-color: #e55353 !important; }
 
@@ -715,15 +555,13 @@ body.daytime .hud-bar-track {
   font-size: 0.92em;
   display: inline-block;
   text-align: right;
-  width: 62px;
+  width: auto !important;
+  min-width: 25px;
 }
 
 .hud-block.dark-mikazuki-style {
   background: rgba(10, 14, 24, 0.95) !important;
   border-top: 1px dashed rgba(245, 235, 215, 0.35) !important;
-  border-right: none !important;
-  border-bottom: none !important;
-  border-left: none !important;
   border-radius: 0 !important;
   padding: 7px 22px !important;
   margin-top: 0 !important;
@@ -742,69 +580,7 @@ body.daytime .hud-block.dark-mikazuki-style {
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.75) !important;
 }
 
-/* ==========================================
-   🌸 状态栏精简与右移终极版 CSS
-   ========================================== */
-
-/* 让所有名字往左边再多移动一点点，拉开左侧的呼吸感空间 */
-.hud-name {
-  font-weight: bold;
-  color: #f7e7ac;
-  font-size: 0.92em;
-  display: inline-block;
-  white-space: nowrap;
-  margin-left: -12px !important;
-}
-
-/* 统一所有行的网格结构：左边名字，右边属性组自动撑开 */
-.hud-row.single-row,
-.hud-row.stats-group-row {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* 第一栏右侧的数值区域：整体往右边再移动一些 */
-.hud-single-right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-right: -8px !important;
-}
-
-/* 右侧双数值的垂直整齐排列栈：整体往右边再移动一些，并保持完美右对齐 */
-.hud-stats-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  align-items: flex-end;
-  margin-right: -8px !important;
-}
-
-/* 因为去掉了 /100，数字变短了，微调宽度让它更精致靠右 */
-.stat-val {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
-  font-size: 0.92em;
-  display: inline-block;
-  text-align: right;
-  width: auto !important;
-  min-width: 25px;
-}
-
-.hud-stats-stack .hud-stat {
-  justify-content: flex-end !important;
-}
-
-#ui-bar-toggle::before {
-  content: "\f013" !important;
-}
-
-/* ==========================================
-   🌸 全局原生弹窗（存档、设置、离开等）蓝金主题美化 🌸
-   ========================================== */
-
-/* 弹窗主体背景与粗金色边框 */
+/* --- 7. 全局游戏弹窗（存档、读取、新的开始）蓝金美化 --- */
 #ui-dialog-body {
   background-color: #101828 !important;
   border: 2px solid rgba(229, 193, 88, 0.75) !important;
@@ -813,7 +589,6 @@ body.daytime .hud-block.dark-mikazuki-style {
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8) !important;
 }
 
-/* 弹窗顶部标题栏 */
 #ui-dialog-titlebar {
   background-color: #17223b !important;
   border: 2px solid rgba(229, 193, 88, 0.75) !important;
@@ -822,7 +597,6 @@ body.daytime .hud-block.dark-mikazuki-style {
   position: relative !important;
 }
 
-/* 弹窗标题文字 */
 #ui-dialog-title {
   color: #f7e7ac !important;
   font-family: "Georgia", "Yu Mincho", "游明朝", serif !important;
@@ -830,7 +604,6 @@ body.daytime .hud-block.dark-mikazuki-style {
   text-shadow: 0 0 8px rgba(229, 193, 88, 0.4) !important;
 }
 
-/* 弹窗右上角关闭按钮 */
 #ui-dialog-close {
   color: #f7e7ac !important;
   background-color: transparent !important;
@@ -843,14 +616,12 @@ body.daytime .hud-block.dark-mikazuki-style {
   color: #ffffff !important;
 }
 
-/* 弹窗容器整体外框（防止圆角溢出） */
 #ui-dialog {
   border-radius: 12px !important;
   overflow: hidden !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(229, 193, 88, 0.2) !important;
 }
 
-/* 存档界面里的表格边框与文字微调 */
 #ui-dialog-body.saves tr:not(:first-child) {
   border-top-color: rgba(229, 193, 88, 0.2) !important;
 }
@@ -861,7 +632,7 @@ body.daytime .hud-block.dark-mikazuki-style {
   border-bottom: 1px solid rgba(229, 193, 88, 0.3) !important;
 }
 
-/* 月亮点击 */
+/* --- 8. 点击屏幕出现一轮明月特效 --- */
 .touken-moon {
   position: fixed;
   pointer-events: none;
@@ -887,11 +658,180 @@ body.daytime .hud-block.dark-mikazuki-style {
 }
 
 /* =========================================================================
-   🌸 终极治愈：强制所有爱抚与互动大容器在屏幕正中央完美居中对称 🌸
+   🌸 侧边栏与齿轮完美进化版：右侧滑出、半透明悬浮遮罩、右下角齿轮 🌸
    ========================================================================= */
+
+/* --- 1. 折叠状态：侧边栏收起时锚点移至右端，彻底消除左侧幽灵黑条 --- */
+#ui-bar.stowed {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  z-index: 900 !important;
+  overflow: visible !important;
+}
+
+/* 🌸 核心改动：永不挤压正文！取消所有页面右侧 margin 留白，让正文在手机上满宽舒展 */
+#ui-bar.stowed ~ #story,
+#ui-bar:not(.stowed) ~ #story {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+#ui-bar.stowed #ui-bar-body,
+#ui-bar.stowed #ui-bar-history {
+  display: none !important;
+}
+
+#ui-bar.stowed #ui-bar-tray {
+  position: static !important;
+  display: block !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: auto !important;
+}
+
+/* --- 2. 齿轮按钮：浅金底色配深蓝轮子，无论折叠展开一律常驻【右下角】 --- */
+#ui-bar #ui-bar-toggle {
+  margin: 0 !important;
+  background-color: #f4ebd0 !important;
+  border: 1px solid #d4b86a !important;
+  border-radius: 8px !important;
+  width: 42px !important;
+  height: 42px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+  transition: background-color 0.2s ease !important;
+  z-index: 100000 !important;
+}
+
+#ui-bar #ui-bar-toggle:hover {
+  background-color: #e5d5ab !important;
+  transform: scale(1.05);
+}
+
+#ui-bar.stowed #ui-bar-toggle {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  top: auto !important;
+  left: auto !important;
+}
+
+/* --- 3. 展开状态：做成真正的【悬浮半透明覆盖层】！直接盖在页面上方，绝不挤压正文 --- */
+#ui-bar:not(.stowed) {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  width: 260px !important;
+  height: 100vh !important;
+  background-color: rgba(244, 235, 208, 0.96) !important; /* 带半透明质感的浅米金背景 */
+  border-left: 2px solid #d4b86a !important;
+  border-right: none !important;
+  box-shadow: -8px 0 25px rgba(0, 0, 0, 0.5) !important; /* 沉浸式浮动阴影，完美呈现层叠感 */
+  padding-top: 20px !important;
+  display: block !important;
+  z-index: 99999 !important; /* 极高层级，悬浮在最顶层 */
+  overflow-y: auto !important;
+}
+
+#ui-bar:not(.stowed) #ui-bar-toggle {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  top: auto !important;
+  left: auto !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* --- 4. 侧边栏内部文字与选项：三日月蓝字，浅蓝悬停变白 --- */
+#ui-bar:not(.stowed), 
+#ui-bar:not(.stowed) * {
+  color: #2b4c7e !important;
+  text-shadow: none !important;
+}
+
+#ui-bar:not(.stowed) #story-title {
+  margin-top: 5px !important;
+  margin-bottom: 20px !important;
+  text-align: center !important;
+  font-weight: bold !important;
+  font-size: 1.15em !important;
+  color: #1d3861 !important;
+}
+
+#ui-bar:not(.stowed) .passage a,
+#ui-bar:not(.stowed) a {
+  color: #2b4c7e !important;
+  background-color: transparent !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  transition: all 0.2s ease !important;
+}
+
+#ui-bar:not(.stowed) .passage a:hover,
+#ui-bar:not(.stowed) a:hover {
+  background-color: #4a6fa5 !important;
+  color: #ffffff !important;
+  border-color: #4a6fa5 !important;
+}
+
+#ui-bar:not(.stowed) .ui-bar-history {
+  display: flex !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  margin-left: 14px !important;
+  margin-bottom: 12px !important;
+}
+
+#ui-bar:not(.stowed) .ui-bar-history button,
+#ui-bar:not(.stowed) #ui-history-backward,
+#ui-bar:not(.stowed) #ui-history-forward {
+  display: inline-block !important;
+  margin: 0 !important;
+  padding: 4px 10px !important;
+  background-color: #faf5e8 !important;
+  border: 1px solid #d4b86a !important;
+  border-radius: 4px !important;
+  color: #2b4c7e !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+#ui-bar:not(.stowed) .ui-bar-history button:hover,
+#ui-bar:not(.stowed) #ui-history-backward:hover,
+#ui-bar:not(.stowed) #ui-history-forward:hover {
+  background-color: #4a6fa5 !important;
+  color: #ffffff !important;
+}
+
+#ui-bar-toggle::before {
+  content: "\2699" !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 22px !important;
+  color: #2b4c7e !important;
+  line-height: 1 !important;
+}
+
+/* --- 5. 终极治愈：爱抚页面左右对齐与居中修复 --- */
+#story {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 
 .touch-page-container {
   margin: 0 auto !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* 汉化主侧边栏及提示 */
 l10nStrings.savesTitle = "档案";
 l10nStrings.restartTitle = "新的开始";
