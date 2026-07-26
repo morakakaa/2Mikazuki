@@ -707,6 +707,7 @@ body.daytime .hud-block.dark-mikazuki-style {
   user-select: none;
   z-index: 99999;
   transform: translate(-50%, -50%);
+  text-shadow: 0 0 12px rgba(255, 243, 191, 0.9), 0 0 24px rgba(255, 220, 130, 0.5);
   animation: moonFadeOut 1.5s ease-out forwards;
 }
 
@@ -714,10 +715,12 @@ body.daytime .hud-block.dark-mikazuki-style {
   0% {
     transform: translate(-50%, -50%) scale(0.7);
     opacity: 1;
+    text-shadow: 0 0 16px rgba(255, 245, 205, 1), 0 0 32px rgba(255, 220, 140, 0.7);
   }
   100% {
     transform: translate(-50%, -50%) scale(1.3);
     opacity: 0;
+    text-shadow: 0 0 4px rgba(255, 245, 205, 0), 0 0 8px rgba(255, 220, 140, 0);
   }
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* 汉化主侧边栏及提示 */
 l10nStrings.savesTitle = "档案";
@@ -988,14 +991,30 @@ document.addEventListener('click', function(e) {
     moon.className = 'touken-moon';
     moon.innerHTML = '🌙';
     
-    // 直接把月亮生成在你点击的精确位置
     moon.style.left = e.clientX + 'px';
     moon.style.top = e.clientY + 'px';
     
     document.body.appendChild(moon);
     
-    // 1.5秒动画结束后自动从页面移除这个元素
     setTimeout(function() { moon.remove(); }, 1500);
+});
+
+
+/* ==========================================
+   🌸 全局音频管家：彻底防止读档或跳页时BGM残留 🌸
+   ========================================== */
+$(document).on(':passageinit', function (ev) {
+  // 在这里列出所有允许播放 mikazuki_bgm 的段落名字
+  var allowedPassages = ["爱抚界面", "自由爱抚"];
+  
+  // 如果即将加载的新段落，不在允许播放的名单里
+  if (!allowedPassages.includes(ev.passage.title)) {
+    // 安全地检查音轨是否存在并正在播放，然后让它闭嘴
+    var track = SimpleAudio.tracks.get("mikazuki_bgm");
+    if (track && track.isPlaying()) {
+      track.stop();
+    }
+  }
 });</script><tw-tag name="start" color="blue"></tw-tag><tw-tag name="daytime" color="orange"></tw-tag><tw-tag name="hide" color="yellow"></tw-tag><tw-passagedata pid="1" name="开始" tags="start" position="100,100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;start-container&quot;&gt;
   &lt;!-- 密集飘落的樱花花瓣阵列 --&gt;
@@ -1926,12 +1945,6 @@ $(document).one(&#39;:passagedisplay&#39;, function() {
     }
   }, 20);
 });
-
-$(document).one(&#39;:passageend&#39;, function () {
-  if (SimpleAudio.tracks.get(&quot;mikazuki_bgm&quot;)) {
-    SimpleAudio.tracks.get(&quot;mikazuki_bgm&quot;).stop();
-  }
-});
 &lt;&lt;/script&gt;&gt;
 &lt;&lt;endnobr&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="补魔介绍" tags="" position="500,225" size="100,100">  &lt;&lt;audio &quot;mikazuki_bgm&quot;  stop&gt;&gt; 
   三日月宗近抬起头来，唇边笑意加深几分：
@@ -2272,12 +2285,6 @@ $(document).one(&#39;:passageend&#39;, function () {
               Engine.play(State.variables.freeReturnPassage ?? &quot;开始&quot;);
             });
           }, 50);
-          
-          $(document).one(&#39;:passageend&#39;, function () {
-  if (SimpleAudio.tracks.get(&quot;mikazuki_bgm&quot;)) {
-    SimpleAudio.tracks.get(&quot;mikazuki_bgm&quot;).stop();
-  }
-});
         &lt;&lt;/script&gt;&gt;
       &lt;&lt;/link&gt;&gt;
     &lt;/div&gt;
